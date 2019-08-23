@@ -8,6 +8,12 @@ variable "account_name" {
   type        = string
 }
 
+variable "administrator_default_arn" {
+  description = "The default ARN for Administrators"
+  type        = string
+  default     = "arn:aws:iam::aws:policy/AdministratorAccess"
+}
+
 variable "domain" {
   description = "The domain to use for the account email address"
   type        = string
