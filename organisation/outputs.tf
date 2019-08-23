@@ -13,3 +13,11 @@ output "terragrunt_admin_role_policy_arn" {
 output "terragrunt_reader_role_policy_arn" {
   value = "${module.assume_role_policy_terragrunt_reader.policy_arn}"
 }
+
+output "terragrunt_admin_policy_arn" {
+  value = "${aws_iam_policy.terragrunt_admin.arn}"
+}
+
+output "terragrunt_reader_policy_arn" {
+  value = "${aws_iam_policy.terragrunt_reader.arn}"
+}
