@@ -10,3 +10,8 @@ resource "aws_iam_user_group_membership" "terragrunt_groups" {
     "terragrunt"
   ]
 }
+
+resource "aws_iam_access_key" "terragrunt_user" {
+  user    = "${aws_iam_user.terragrunt_user.name}"
+  pgp_key = "keybase:${var.keybase}"
+}
