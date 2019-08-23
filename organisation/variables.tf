@@ -4,6 +4,11 @@ variable "billing_default_arn" {
   default     = "arn:aws:iam::aws:policy/job-function/Billing"
 }
 
+variable "cloudtrail_bucket_name" {
+  description = "The name of the S3 bucket holding cloudtrail data"
+  type        = string
+}
+
 variable "tfstate_global_bucket" {
   description = "The S3 bucket that holds Terraform state"
   type        = string
