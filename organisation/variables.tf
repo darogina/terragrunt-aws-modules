@@ -3,3 +3,13 @@ variable "billing_default_arn" {
   type        = string
   default     = "arn:aws:iam::aws:policy/job-function/Billing"
 }
+
+variable "tfstate_global_bucket" {
+  description = "The S3 bucket that holds Terraform state"
+  type        = string
+}
+
+variable "tfstate_global_dynamodb" {
+  description = "The DynamoDB table that holds Terraform locks"
+  type        = string
+}
