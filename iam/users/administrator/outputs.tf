@@ -11,5 +11,5 @@ output "admin_user_secret_key" {
 }
 
 output "admin_username" {
-  value = "${aws_iam_access_key.admin_user.name}"
+  value = "${aws_iam_user.admin_user.name}"
 }
