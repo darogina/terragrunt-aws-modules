@@ -1,1 +1,1 @@
-# terragrunt-aws-init-modules
+# terragrunt-aws-modules
