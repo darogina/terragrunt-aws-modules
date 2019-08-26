@@ -19,7 +19,7 @@ data "terraform_remote_state" "staging" {
 
   config = {
     bucket = "${var.tfstate_global_bucket}"
-    key    = "accounts/staging/terraform.tfstate"
+    key    = "first-run/accounts/staging/terraform.tfstate"
     region = "${var.tfstate_global_bucket_region}"
   }
 }
@@ -58,7 +58,7 @@ resource "aws_iam_group" "developers" {
   name = "developers"
 }
 
-resource "aws_iam_group_policy_attachment" "assume_role_organisation_admin" {
+resource "aws_iam_group_policy_attachment" "assume_role_power_user" {
   group      = "${aws_iam_group.developers.name}"
   policy_arn = "${module.assume_role_policy_staging_power_user.policy_arn}"
 }

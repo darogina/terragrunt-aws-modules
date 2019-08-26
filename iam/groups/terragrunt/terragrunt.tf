@@ -3,7 +3,7 @@ data "terraform_remote_state" "master" {
 
   config = {
     bucket = "${var.tfstate_global_bucket}"
-    key    = "organisation/terraform.tfstate"
+    key    = "first-run/organisation/terraform.tfstate"
     region = "${var.tfstate_global_bucket_region}"
   }
 }
@@ -13,7 +13,7 @@ data "terraform_remote_state" "management" {
 
   config = {
     bucket = "${var.tfstate_global_bucket}"
-    key    = "accounts/management/terraform.tfstate"
+    key    = "first-run/accounts/management/terraform.tfstate"
     region = "${var.tfstate_global_bucket_region}"
   }
 }
@@ -23,7 +23,7 @@ data "terraform_remote_state" "production" {
 
   config = {
     bucket = "${var.tfstate_global_bucket}"
-    key    = "accounts/production/terraform.tfstate"
+    key    = "first-run/accounts/production/terraform.tfstate"
     region = "${var.tfstate_global_bucket_region}"
   }
 }
@@ -33,7 +33,7 @@ data "terraform_remote_state" "staging" {
 
   config = {
     bucket = "${var.tfstate_global_bucket}"
-    key    = "accounts/staging/terraform.tfstate"
+    key    = "first-run/accounts/staging/terraform.tfstate"
     region = "${var.tfstate_global_bucket_region}"
   }
 }
