@@ -1,9 +1,19 @@
+data "terraform_remote_state" "first_run" {
+  backend = "s3"
+
+  config = {
+    bucket = "${var.tfstate_global_bucket}"
+    key    = "first-run/convert-to-organisation/terraform.tfstate"
+    region = "${var.tfstate_global_bucket_region}"
+  }
+}
+
 data "terraform_remote_state" "master" {
   backend = "s3"
 
   config = {
     bucket = "${var.tfstate_global_bucket}"
-    key    = "first-run/organisation/terraform.tfstate"
+    key    = "organisation/terraform.tfstate"
     region = "${var.tfstate_global_bucket_region}"
   }
 }
@@ -13,7 +23,7 @@ data "terraform_remote_state" "management" {
 
   config = {
     bucket = "${var.tfstate_global_bucket}"
-    key    = "first-run/accounts/management/terraform.tfstate"
+    key    = "accounts/management/terraform.tfstate"
     region = "${var.tfstate_global_bucket_region}"
   }
 }
@@ -23,7 +33,7 @@ data "terraform_remote_state" "production" {
 
   config = {
     bucket = "${var.tfstate_global_bucket}"
-    key    = "first-run/accounts/production/terraform.tfstate"
+    key    = "accounts/production/terraform.tfstate"
     region = "${var.tfstate_global_bucket_region}"
   }
 }
@@ -33,7 +43,7 @@ data "terraform_remote_state" "staging" {
 
   config = {
     bucket = "${var.tfstate_global_bucket}"
-    key    = "first-run/accounts/staging/terraform.tfstate"
+    key    = "accounts/staging/terraform.tfstate"
     region = "${var.tfstate_global_bucket_region}"
   }
 }
@@ -44,7 +54,7 @@ resource "aws_iam_group" "administrators" {
 
 resource "aws_iam_group_policy_attachment" "assume_role_organisation_admin" {
   group      = "${aws_iam_group.administrators.name}"
-  policy_arn = "${data.terraform_remote_state.master.outputs.admin_role_policy_arn}"
+  policy_arn = "${data.terraform_remote_state.first_run.outputs.organisation_admin_role_policy_arn}"
 }
 
 resource "aws_iam_group_policy_attachment" "assume_role_management_admin" {

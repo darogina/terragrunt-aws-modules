@@ -1,3 +1,20 @@
+data "aws_caller_identity" "current" {}
+
+data "aws_iam_policy_document" "crossaccount_assume_from_master" {
+  statement {
+    sid     = "AssumeFromMaster"
+    actions = ["sts:AssumeRole"]
+
+    principals {
+      type = "AWS"
+
+      identifiers = [
+        "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root",
+      ]
+    }
+  }
+}
+
 resource "aws_organizations_organization" "master" {
   feature_set = "ALL"
 
@@ -11,7 +28,7 @@ resource "aws_organizations_organization" "master" {
 }
 
 module "cross_account_role_organisation_admin" {
-  source = "../utility/cross-account-role"
+  source = "../cross-account-role"
 
   assume_role_policy_json = "${data.aws_iam_policy_document.crossaccount_assume_from_master.json}"
   role                    = "Administrator"
@@ -19,19 +36,9 @@ module "cross_account_role_organisation_admin" {
 }
 
 module "assume_role_policy_organisation_admin" {
-  source = "../utility/assume-role-policy"
+  source = "../assume-role-policy"
 
   account_name = "master"
   account_id   = "${data.aws_caller_identity.current.account_id}"
   role         = "Administrator"
-}
-
-resource "aws_iam_account_password_policy" "strict" {
-  minimum_password_length        = 10
-  require_lowercase_characters   = true
-  require_numbers                = true
-  require_uppercase_characters   = true
-  require_symbols                = true
-  allow_users_to_change_password = true
-  max_password_age               = 90
 }

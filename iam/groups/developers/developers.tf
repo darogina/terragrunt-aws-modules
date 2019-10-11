@@ -19,7 +19,7 @@ data "terraform_remote_state" "staging" {
 
   config = {
     bucket = "${var.tfstate_global_bucket}"
-    key    = "first-run/accounts/staging/terraform.tfstate"
+    key    = "accounts/staging/terraform.tfstate"
     region = "${var.tfstate_global_bucket_region}"
   }
 }

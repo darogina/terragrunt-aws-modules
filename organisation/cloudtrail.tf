@@ -67,6 +67,4 @@ resource "aws_cloudtrail" "cloudtrail" {
   enable_log_file_validation = true
   is_multi_region_trail      = true
   is_organization_trail      = true
-
-  depends_on = [aws_organizations_organization.master]
 }
