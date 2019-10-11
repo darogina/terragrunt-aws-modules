@@ -19,7 +19,8 @@ resource "aws_organizations_organization" "master" {
   feature_set = "ALL"
 
   aws_service_access_principals = [
-    "cloudtrail.amazonaws.com"
+    "cloudtrail.amazonaws.com",
+    "config.amazonaws.com"
   ]
 
   lifecycle {
