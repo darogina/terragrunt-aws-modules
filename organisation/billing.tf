@@ -2,7 +2,7 @@ module "cross_account_role_master_billing" {
   source = "../utility/cross-account-role"
 
   assume_role_policy_json = "${data.aws_iam_policy_document.crossaccount_assume_from_master.json}"
-  role                    = "Billing"
+  role                    = "BillingRole"
   role_policy_arn         = "${var.billing_default_arn}"
 }
 

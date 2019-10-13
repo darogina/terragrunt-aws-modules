@@ -34,7 +34,7 @@ provider "aws" {
   region = "${var.aws_region}"
 }
 
-module "cross_account_role" {
+module "cross_account_role_account_administrator" {
   source = "../utility/cross-account-role"
 
   providers = {
@@ -42,15 +42,15 @@ module "cross_account_role" {
   }
 
   assume_role_policy_json = "${data.aws_iam_policy_document.crossaccount_assume_from_master.json}"
-  role                    = "Administrator"
+  role                    = "AdministratorRole"
   role_policy_arn         = "${var.administrator_default_arn}"
 }
 
-module "assume_role_policy_account_admin" {
+module "assume_role_policy_account_administrator" {
   source = "../utility/assume-role-policy"
 
   account_name = "${var.account_name}"
   account_id   = "${aws_organizations_account.account.id}"
-  role         = "${module.cross_account_role.role_name}"
+  role         = "${module.cross_account_role_account_administrator.role_name}"
 }
 

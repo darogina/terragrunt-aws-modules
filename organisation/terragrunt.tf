@@ -116,7 +116,7 @@ module "cross_account_role_terragrunt_admin" {
   source = "../utility/cross-account-role"
 
   assume_role_policy_json = "${data.aws_iam_policy_document.crossaccount_assume_from_master.json}"
-  role                    = "TerragruntAdministrator"
+  role                    = "TerragruntAdministratorRole"
   role_policy_arn         = "${aws_iam_policy.terragrunt_admin.arn}"
 }
 
@@ -124,7 +124,7 @@ module "cross_account_role_terragrunt_reader" {
   source = "../utility/cross-account-role"
 
   assume_role_policy_json = "${data.aws_iam_policy_document.crossaccount_assume_from_master.json}"
-  role                    = "TerragruntReader"
+  role                    = "TerragruntReaderRole"
   role_policy_arn         = "${aws_iam_policy.terragrunt_reader.arn}"
 }
 

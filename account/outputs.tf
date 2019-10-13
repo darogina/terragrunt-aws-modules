@@ -7,5 +7,5 @@ output "account_name" {
 }
 
 output "admin_role_policy_arn" {
-  value = "${module.assume_role_policy_account_admin.policy_arn}"
+  value = "${module.assume_role_policy_account_administrator.policy_arn}"
 }
