@@ -9,3 +9,7 @@ output "account_name" {
 output "admin_role_policy_arn" {
   value = "${module.assume_role_policy_account_administrator.policy_arn}"
 }
+
+output "org_account_access_role_policy_arn" {
+  value = "${module.assume_role_policy_organisation_account_access.policy_arn}"
+}

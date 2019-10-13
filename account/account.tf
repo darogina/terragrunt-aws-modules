@@ -54,3 +54,10 @@ module "assume_role_policy_account_administrator" {
   role         = "${module.cross_account_role_account_administrator.role_name}"
 }
 
+module "assume_role_policy_organisation_account_access" {
+  source = "../utility/assume-role-policy"
+
+  account_name = "${var.account_name}"
+  account_id   = "${aws_organizations_account.account.id}"
+  role         = "OrganizationAccountAccessRole"
+}
