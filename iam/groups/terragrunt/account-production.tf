@@ -8,11 +8,6 @@ data "terraform_remote_state" "production" {
   }
 }
 
-resource "aws_iam_group_policy_attachment" "assume_role_production_admin" {
-  group      = "${aws_iam_group.terragrunt.name}"
-  policy_arn = "${data.terraform_remote_state.production.outputs.admin_role_policy_arn}"
-}
-
 resource "aws_iam_group_policy_attachment" "assume_role_organisation_account_access_production" {
   group      = "${aws_iam_group.terragrunt.name}"
   policy_arn = "${data.terraform_remote_state.production.outputs.org_account_access_role_policy_arn}"
