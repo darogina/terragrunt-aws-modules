@@ -1,5 +1,18 @@
 data "aws_iam_policy_document" "terragrunt_admin" {
   statement {
+    sid = "AllowListAllS3Buckets"
+
+    actions = [
+      "s3:GetBucketLocation",
+      "s3:ListAllMyBuckets"
+    ]
+
+    resources = [
+      "*"
+    ]
+  }
+
+  statement {
     sid = "AllowS3ActionsOnTerraformBucket"
 
     actions = [
@@ -69,6 +82,19 @@ resource "aws_iam_policy" "terragrunt_admin" {
 
 data "aws_iam_policy_document" "terragrunt_reader" {
   statement {
+    sid = "AllowListAllS3Buckets"
+
+    actions = [
+      "s3:GetBucketLocation",
+      "s3:ListAllMyBuckets"
+    ]
+
+    resources = [
+      "*"
+    ]
+  }
+
+  statement {
     sid = "AllowListS3ActionsOnTerraformBucket"
 
     actions = [
@@ -89,19 +115,6 @@ data "aws_iam_policy_document" "terragrunt_reader" {
 
     resources = [
       "arn:aws:s3:::${var.tfstate_global_bucket}/*",
-    ]
-  }
-
-  statement {
-    sid = "AllowListAllS3Buckets"
-
-    actions = [
-      "s3:GetBucketLocation",
-      "s3:ListAllMyBuckets"
-    ]
-
-    resources = [
-      "*"
     ]
   }
 }
