@@ -17,7 +17,7 @@ resource "aws_iam_group_policy_attachment" "terragrunt_data_administrator" {
   policy_arn = "${data.terraform_remote_state.master.outputs.terragrunt_data_administrator_policy_arn}"
 }
 
-resource "aws_iam_group_policy_attachment" "iam_full_access" {
+resource "aws_iam_group_policy_attachment" "assume_terragrunt_administrator" {
   group      = "${aws_iam_group.terragrunt.name}"
-  policy_arn = "arn:aws:iam::aws:policy/IAMFullAccess"
+  policy_arn = "${data.terraform_remote_state.master.outputs.assume_terragrunt_administrator_role_policy_arn}"
 }

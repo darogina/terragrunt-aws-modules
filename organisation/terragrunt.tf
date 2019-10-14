@@ -1,3 +1,13 @@
+module "assume_role_terragrunt_administrator" {
+  source = "../utility/create-role"
+
+  account_name            = "master"
+  account_id              = "${data.aws_caller_identity.current.account_id}"
+  assume_role_policy_json = "${data.aws_iam_policy_document.crossaccount_assume_from_master.json}"
+  role                    = "TerragruntAdministrator"
+  role_policy_arn         = "${var.administrator_default_arn}"
+}
+
 data "aws_iam_policy_document" "terragrunt_data_administrator" {
   statement {
     sid = "AllowListAllS3Buckets"

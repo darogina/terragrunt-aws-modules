@@ -1,3 +1,7 @@
+output "assume_terragrunt_administrator_role_policy_arn" {
+  value = "${module.assume_role_terragrunt_administrator.policy_arn}"
+}
+
 output "cloudtrail_bucket_id" {
   value = "${aws_s3_bucket.cloudtrail.id}"
 }
