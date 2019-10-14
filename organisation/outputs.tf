@@ -2,6 +2,14 @@ output "assume_terragrunt_administrator_role_policy_arn" {
   value = "${module.assume_role_terragrunt_administrator.policy_arn}"
 }
 
+output "assume_terragrunt_data_administrator_role_policy_arn" {
+  value = "${module.assume_role_terragrunt_data_administrator.policy_arn}"
+}
+
+output "assume_terragrunt_data_reader_role_policy_arn" {
+  value = "${module.assume_role_terragrunt_data_reader.policy_arn}"
+}
+
 output "cloudtrail_bucket_id" {
   value = "${aws_s3_bucket.cloudtrail.id}"
 }
@@ -18,14 +26,6 @@ output "terragrunt_data_administrator_policy_arn" {
   value = "${aws_iam_policy.terragrunt_data_administrator.arn}"
 }
 
-output "assume_terragrunt_data_administrator_role_policy_arn" {
-  value = "${module.assume_role_terragrunt_data_administrator.policy_arn}"
-}
-
 output "terragrunt_data_reader_policy_arn" {
   value = "${aws_iam_policy.terragrunt_data_reader.arn}"
-}
-
-output "assume_terragrunt_data_reader_role_policy_arn" {
-  value = "${module.assume_role_terragrunt_data_reader.policy_arn}"
 }

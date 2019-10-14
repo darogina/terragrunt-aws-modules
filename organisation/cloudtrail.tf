@@ -1,4 +1,4 @@
-data "aws_iam_policy_document" "cloudtrail_bucket" {
+data "aws_iam_policy_document" "cloudtrail_bucket_policy" {
   statement {
     sid = "CloudTrailAclCheck"
 
@@ -44,7 +44,7 @@ data "aws_iam_policy_document" "cloudtrail_bucket" {
 }
 
 resource "aws_s3_bucket" "cloudtrail" {
-  policy = "${data.aws_iam_policy_document.cloudtrail_bucket.json}"
+  policy = "${data.aws_iam_policy_document.cloudtrail_bucket_policy.json}"
   bucket = "${var.cloudtrail_bucket_name}"
   acl    = "log-delivery-write"
 
