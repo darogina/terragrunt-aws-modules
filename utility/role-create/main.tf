@@ -1,5 +1,5 @@
 resource "aws_iam_role" "role" {
-  name               = "${replace(title(var.role), "/-| /", "")}"
+  name        = "${replace(title(var.account_name), "/-| /", "")}${replace(title(var.role), "/-| /", "")}AccessRole"
   assume_role_policy = "${var.assume_role_policy_json}"
 }
 

@@ -80,6 +80,16 @@ resource "aws_iam_policy" "terragrunt_admin" {
   description = "Grants permissions to manage Terraform remote state"
 }
 
+module "assume_role_terragrunt_admin" {
+  source = "../utility/create-role"
+
+  account_name            = "master"
+  account_id              = "${data.aws_caller_identity.current.account_id}"
+  assume_role_policy_json = "${data.aws_iam_policy_document.crossaccount_assume_from_master.json}"
+  role                    = "TerragruntAdministrator"
+  role_policy_arn         = "${aws_iam_policy.terragrunt_admin.arn}"
+}
+
 data "aws_iam_policy_document" "terragrunt_reader" {
   statement {
     sid = "AllowListAllS3Buckets"
@@ -125,34 +135,12 @@ resource "aws_iam_policy" "terragrunt_reader" {
   description = "Grants permissions to read Terraform remote state"
 }
 
-module "cross_account_role_terragrunt_admin" {
-  source = "../utility/cross-account-role"
+module "assume_role_terragrunt_reader" {
+  source = "../utility/create-role"
 
+  account_name            = "master"
+  account_id              = "${data.aws_caller_identity.current.account_id}"
   assume_role_policy_json = "${data.aws_iam_policy_document.crossaccount_assume_from_master.json}"
-  role                    = "TerragruntAdministratorRole"
-  role_policy_arn         = "${aws_iam_policy.terragrunt_admin.arn}"
-}
-
-module "cross_account_role_terragrunt_reader" {
-  source = "../utility/cross-account-role"
-
-  assume_role_policy_json = "${data.aws_iam_policy_document.crossaccount_assume_from_master.json}"
-  role                    = "TerragruntReaderRole"
+  role                    = "TerragruntReader"
   role_policy_arn         = "${aws_iam_policy.terragrunt_reader.arn}"
-}
-
-module "assume_role_policy_terragrunt_admin" {
-  source = "../utility/assume-role-policy"
-
-  account_name = "master"
-  account_id   = "${data.aws_caller_identity.current.account_id}"
-  role         = "${module.cross_account_role_terragrunt_admin.role_name}"
-}
-
-module "assume_role_policy_terragrunt_reader" {
-  source = "../utility/assume-role-policy"
-
-  account_name = "master"
-  account_id   = "${data.aws_caller_identity.current.account_id}"
-  role         = "${module.cross_account_role_terragrunt_reader.role_name}"
 }

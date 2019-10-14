@@ -24,40 +24,30 @@ resource "aws_organizations_account" "account" {
   }
 }
 
-provider "aws" {
-  alias = "assume_account"
+module "assume_role_account_administrator" {
+  source = "../utility/create-role-in-different-account"
 
-  assume_role {
-    role_arn = "arn:aws:iam::${aws_organizations_account.account.id}:role/OrganizationAccountAccessRole"
-  }
-
-  region = "${var.aws_region}"
-}
-
-module "cross_account_role_account_administrator" {
-  source = "../utility/cross-account-role"
-
-  providers = {
-    aws = "aws.assume_account"
-  }
-
+  account_name            = "${var.account_name}"
+  account_id              = "${aws_organizations_account.account.id}"
   assume_role_policy_json = "${data.aws_iam_policy_document.crossaccount_assume_from_master.json}"
-  role                    = "AdministratorRole"
+  role                    = "Administrator"
   role_policy_arn         = "${var.administrator_default_arn}"
 }
 
-module "assume_role_policy_account_administrator" {
-  source = "../utility/assume-role-policy"
+data "aws_iam_policy_document" "assume_role_organisation_account_access" {
+  statement {
+    sid     = "Assume${title(var.account_name)}OrganizationAccountAccessRole"
+    actions = ["sts:AssumeRole"]
 
-  account_name = "${var.account_name}"
-  account_id   = "${aws_organizations_account.account.id}"
-  role         = "${module.cross_account_role_account_administrator.role_name}"
+    resources = [
+      "arn:aws:iam::${aws_organizations_account.account.id}:role/OrganizationAccountAccessRole",
+    ]
+  }
 }
 
-module "assume_role_policy_organisation_account_access" {
-  source = "../utility/assume-role-policy"
-
-  account_name = "${var.account_name}"
-  account_id   = "${aws_organizations_account.account.id}"
-  role         = "OrganizationAccountAccessRole"
+resource "aws_iam_policy" "assume_role_organisation_account_access" {
+  name        = "Assume${title(var.account_name)}OrganizationAccountAccessRole"
+  policy      = "${data.aws_iam_policy_document.assume_role_organisation_account_access.json}"
+  description = "Grants role assuption for the OrganizationAccountAccess role in the ${title(var.account_name)} account"
 }
+
