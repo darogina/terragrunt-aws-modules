@@ -19,6 +19,7 @@ resource "aws_iam_user_group_membership" "administrator_groups" {
 
   groups = [
     "administrators",
+    "terragrunt",
     "users"
   ]
 }
