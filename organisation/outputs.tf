@@ -10,18 +10,18 @@ output "master_billing_role_policy_arn" {
   value = "${module.assume_role_master_billing.policy_arn}"
 }
 
-output "terragrunt_admin_policy_arn" {
-  value = "${aws_iam_policy.terragrunt_admin.arn}"
+output "terragrunt_data_administrator_policy_arn" {
+  value = "${aws_iam_policy.terragrunt_data_administrator.arn}"
 }
 
-output "assume_terragrunt_admin_role_policy_arn" {
-  value = "${module.assume_role_terragrunt_admin.policy_arn}"
+output "assume_terragrunt_data_administrator_role_policy_arn" {
+  value = "${module.assume_role_terragrunt_data_administrator.policy_arn}"
 }
 
-output "terragrunt_reader_policy_arn" {
-  value = "${aws_iam_policy.terragrunt_reader.arn}"
+output "terragrunt_data_reader_policy_arn" {
+  value = "${aws_iam_policy.terragrunt_data_reader.arn}"
 }
 
-output "assume_terragrunt_reader_role_policy_arn" {
-  value = "${module.assume_role_terragrunt_reader.policy_arn}"
+output "assume_terragrunt_data_reader_role_policy_arn" {
+  value = "${module.assume_role_terragrunt_data_reader.policy_arn}"
 }

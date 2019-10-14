@@ -12,9 +12,9 @@ resource "aws_iam_group" "terragrunt" {
   name = "terragrunt"
 }
 
-resource "aws_iam_group_policy_attachment" "terragrunt_admin" {
+resource "aws_iam_group_policy_attachment" "terragrunt_data_administrator" {
   group      = "${aws_iam_group.terragrunt.name}"
-  policy_arn = "${data.terraform_remote_state.master.outputs.terragrunt_admin_policy_arn}"
+  policy_arn = "${data.terraform_remote_state.master.outputs.terragrunt_data_administrator_policy_arn}"
 }
 
 resource "aws_iam_group_policy_attachment" "iam_full_access" {

@@ -72,9 +72,9 @@ resource "aws_iam_group_policy_attachment" "assume_role_staging_admin" {
   policy_arn = "${data.terraform_remote_state.staging.outputs.admin_role_policy_arn}"
 }
 
-resource "aws_iam_group_policy_attachment" "assume_role_terragrunt_reader" {
+resource "aws_iam_group_policy_attachment" "assume_role_terragrunt_data_reader" {
   group      = "${aws_iam_group.administrators.name}"
-  policy_arn = "${data.terraform_remote_state.master.outputs.terragrunt_reader_role_policy_arn}"
+  policy_arn = "${data.terraform_remote_state.master.outputs.assume_terragrunt_data_reader_role_policy_arn}"
 }
 
 resource "aws_iam_group_policy_attachment" "assume_role_billing" {
