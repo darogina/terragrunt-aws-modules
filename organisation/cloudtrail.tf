@@ -48,6 +48,8 @@ resource "aws_s3_bucket" "cloudtrail" {
   bucket = "${var.cloudtrail_bucket_name}"
   acl    = "log-delivery-write"
 
+  force_destroy = false
+
   versioning {
     enabled = true
   }
@@ -59,6 +61,45 @@ resource "aws_s3_bucket" "cloudtrail" {
       }
     }
   }
+
+  object_lock_configuration {
+    object_lock_enabled = "Enabled"
+  }
+
+  lifecycle_rule {
+    enabled = true
+
+    expiration {
+      days = "90"
+    }
+
+    transition {
+      days          = "30"
+      storage_class = "STANDARD_IA"
+    }
+
+    transition {
+      days          = "60"
+      storage_class = "GLACIER"
+    }
+
+    noncurrent_version_expiration {
+      days = "90"
+    }
+
+    noncurrent_version_transition {
+      days          = "30"
+      storage_class = "GLACIER"
+    }
+  }
+}
+
+resource "aws_s3_bucket_public_access_block" "cloudtrail" {
+  bucket = "${aws_s3_bucket.cloudtrail.id}"
+
+  block_public_acls       = true
+  block_public_policy     = true
+  restrict_public_buckets = true
 }
 
 resource "aws_cloudtrail" "cloudtrail" {
