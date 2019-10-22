@@ -1,5 +1,5 @@
 module "assume_role_master_billing" {
-  source = "../utility/create-role"
+  source = "../utility/create-role-with-assume"
 
   account_name            = "master"
   account_id              = "${data.aws_caller_identity.current.account_id}"

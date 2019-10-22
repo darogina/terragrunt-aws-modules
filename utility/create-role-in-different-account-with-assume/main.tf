@@ -7,7 +7,7 @@ provider "aws" {
 }
 
 module "create_role" {
-  source = "../role-create"
+  source = "../components/create-role"
 
   providers = {
     aws = "aws.assume_account"
@@ -20,10 +20,10 @@ module "create_role" {
 }
 
 module "assume_role" {
-  source = "../role-assume"
+  source = "../components/create-assume-role"
 
-  account_name            = "${var.account_name}"
-  account_id              = "${var.account_id}"
-  role                    = "${module.create_role.name}"
+  account_name = "${var.account_name}"
+  account_id   = "${var.account_id}"
+  role         = "${module.create_role.name}"
 }
 

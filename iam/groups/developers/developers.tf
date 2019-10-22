@@ -26,7 +26,7 @@ data "terraform_remote_state" "staging" {
 }
 
 module "assume_role_staging_power_user" {
-  source = "../../../utility/create-role-in-different-account"
+  source = "../../../utility/create-role-in-different-account-with-assume"
 
   account_name            = "${data.terraform_remote_state.staging.outputs.account_name}"
   account_id              = "${data.terraform_remote_state.staging.outputs.account_id}"

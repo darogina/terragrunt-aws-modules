@@ -1,5 +1,5 @@
 module "create_role" {
-  source = "../role-create"
+  source = "../components/create-role"
 
   account_name            = "${var.account_name}"
   assume_role_policy_json = "${var.assume_role_policy_json}"
@@ -8,10 +8,10 @@ module "create_role" {
 }
 
 module "assume_role" {
-  source = "../role-assume"
+  source = "../components/create-assume-role"
 
-  account_name            = "${var.account_name}"
-  account_id              = "${var.account_id}"
-  role                    = "${module.create_role.name}"
+  account_name = "${var.account_name}"
+  account_id   = "${var.account_id}"
+  role         = "${module.create_role.name}"
 }
 

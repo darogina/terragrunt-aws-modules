@@ -25,7 +25,7 @@ resource "aws_organizations_account" "account" {
 }
 
 module "assume_role_account_administrator" {
-  source = "../utility/create-role-in-different-account"
+  source = "../utility/create-role-in-different-account-with-assume"
 
   account_name            = "${var.account_name}"
   account_id              = "${aws_organizations_account.account.id}"
