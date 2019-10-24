@@ -10,6 +10,14 @@ output "assume_terragrunt_data_reader_role_policy_arn" {
   value = "${module.assume_role_terragrunt_data_reader.policy_arn}"
 }
 
+output "audit_logs_bucket_arn" {
+  value = "${aws_s3_bucket.audit_logs.arn}"
+}
+
+output "audit_logs_bucket_id" {
+  value = "${aws_s3_bucket.audit_logs.id}"
+}
+
 output "cloudtrail_bucket_id" {
   value = "${aws_s3_bucket.cloudtrail.id}"
 }

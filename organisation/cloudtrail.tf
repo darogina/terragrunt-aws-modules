@@ -66,6 +66,10 @@ resource "aws_s3_bucket" "cloudtrail" {
     object_lock_enabled = "Enabled"
   }
 
+  logging {
+    target_bucket = aws_s3_bucket.audit_logs.id
+  }
+
   lifecycle_rule {
     enabled = true
 
