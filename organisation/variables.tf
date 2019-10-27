@@ -4,20 +4,10 @@ variable "administrator_default_arn" {
   default     = "arn:aws:iam::aws:policy/AdministratorAccess"
 }
 
-variable "audit_logs_bucket_name" {
-  description = "The name of the S3 bucket holding audit data"
-  type        = string
-}
-
 variable "billing_default_arn" {
   description = "The default ARN for Billing"
   type        = string
   default     = "arn:aws:iam::aws:policy/job-function/Billing"
-}
-
-variable "cloudtrail_bucket_name" {
-  description = "The name of the S3 bucket holding cloudtrail data"
-  type        = string
 }
 
 variable "tfstate_global_bucket" {

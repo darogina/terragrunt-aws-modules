@@ -20,7 +20,14 @@ data "aws_iam_policy_document" "audit_log_policy" {
       identifiers = ["config.amazonaws.com"]
     }
 
-    resources = ["${aws_s3_bucket.audit_logs.arn}/config/AWSLogs/${data.aws_caller_identity.current.account_id}/Config/*"]
+    resources = concat(
+      [
+        "${aws_s3_bucket.audit_logs.arn}/config/AWSLogs/${data.aws_organizations_organization.organisation.id}/Config/*"
+      ],
+      [
+        for account in data.aws_organizations_organization.organisation.non_master_accounts : "${aws_s3_bucket.audit_logs.arn}/config/AWSLogs/${account.id}/Config/*"
+      ]
+    )
 
     condition {
       test     = "StringEquals"
@@ -50,12 +57,38 @@ data "aws_iam_policy_document" "audit_log_policy" {
       identifiers = ["cloudtrail.amazonaws.com"]
     }
 
-    resources = ["${aws_s3_bucket.audit_logs.arn}/cloudtrail/AWSLogs/${data.aws_caller_identity.current.account_id}/*"]
+    resources = concat(
+      [
+        "${aws_s3_bucket.audit_logs.arn}/cloudtrail/AWSLogs/${data.aws_organizations_organization.organisation.id}/*"
+      ],
+      [
+        for account in data.aws_organizations_organization.organisation.non_master_accounts : "${aws_s3_bucket.audit_logs.arn}/cloudtrail/AWSLogs/${account.id}/*"
+      ]
+    )
 
     condition {
       test     = "StringEquals"
       variable = "s3:x-amz-acl"
       values   = ["bucket-owner-full-control"]
+    }
+  }
+
+  dynamic "statement" {
+    for_each = data.aws_organizations_organization.organisation.non_master_accounts[*].id
+    iterator = account_id
+
+    content {
+      principals {
+        type = "AWS"
+        identifiers = [
+          "arn:aws:iam::${account_id.value}:root"
+        ]
+      }
+      actions = [
+        "s3:GetBucketLocation",
+        "s3:ListBucket"
+      ]
+      resources = [aws_s3_bucket.audit_logs.arn]
     }
   }
 }
