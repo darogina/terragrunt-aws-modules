@@ -25,3 +25,7 @@ output "terragrunt_data_administrator_policy_arn" {
 output "terragrunt_data_reader_policy_arn" {
   value = "${aws_iam_policy.terragrunt_data_reader.arn}"
 }
+
+output "vpc_flow_logs_publisher_role_arn" {
+  value = "${aws_iam_role.vpc_flow_logs_publisher.arn}"
+}

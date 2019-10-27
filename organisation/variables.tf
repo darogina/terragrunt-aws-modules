@@ -19,3 +19,13 @@ variable "tfstate_global_dynamodb" {
   description = "The DynamoDB table that holds Terraform locks"
   type        = string
 }
+
+variable "vpc_iam_role_name" {
+  description = "The name of the IAM Role which VPC Flow Logs will use."
+  default     = "MasterVPCFlowLogsPublisherRole"
+}
+
+variable "vpc_iam_role_policy_name" {
+  description = "The name of the IAM Role Policy which VPC Flow Logs will use."
+  default     = "MasterVPCFlowLogsPublisherRole"
+}
