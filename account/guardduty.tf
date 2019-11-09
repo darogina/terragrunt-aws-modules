@@ -1,0 +1,43 @@
+module "enable_guardduty" {
+  source = "../utility/enable-guardduty-in-all-regions"
+
+  providers = {
+    aws.master-ap-northeast-1 = "aws.master-ap-northeast-1"
+    aws.master-ap-northeast-2 = "aws.master-ap-northeast-2"
+    aws.master-ap-south-1     = "aws.master-ap-south-1"
+    aws.master-ap-southeast-1 = "aws.master-ap-southeast-1"
+    aws.master-ap-southeast-2 = "aws.master-ap-southeast-2"
+    aws.master-ca-central-1   = "aws.master-ca-central-1"
+    aws.master-eu-central-1   = "aws.master-eu-central-1"
+    aws.master-eu-north-1     = "aws.master-eu-north-1"
+    aws.master-eu-west-1      = "aws.master-eu-west-1"
+    aws.master-eu-west-2      = "aws.master-eu-west-2"
+    aws.master-eu-west-3      = "aws.master-eu-west-3"
+    aws.master-sa-east-1      = "aws.master-sa-east-1"
+    aws.master-us-east-1      = "aws.master-us-east-1"
+    aws.master-us-east-2      = "aws.master-us-east-2"
+    aws.master-us-west-1      = "aws.master-us-west-1"
+    aws.master-us-west-2      = "aws.master-us-west-2"
+
+    aws.member-ap-northeast-1 = "aws.member-ap-northeast-1"
+    aws.member-ap-northeast-2 = "aws.member-ap-northeast-2"
+    aws.member-ap-south-1     = "aws.member-ap-south-1"
+    aws.member-ap-southeast-1 = "aws.member-ap-southeast-1"
+    aws.member-ap-southeast-2 = "aws.member-ap-southeast-2"
+    aws.member-ca-central-1   = "aws.member-ca-central-1"
+    aws.member-eu-central-1   = "aws.member-eu-central-1"
+    aws.member-eu-north-1     = "aws.member-eu-north-1"
+    aws.member-eu-west-1      = "aws.member-eu-west-1"
+    aws.member-eu-west-2      = "aws.member-eu-west-2"
+    aws.member-eu-west-3      = "aws.member-eu-west-3"
+    aws.member-sa-east-1      = "aws.member-sa-east-1"
+    aws.member-us-east-1      = "aws.member-us-east-1"
+    aws.member-us-east-2      = "aws.member-us-east-2"
+    aws.member-us-west-1      = "aws.member-us-west-1"
+    aws.member-us-west-2      = "aws.member-us-west-2"
+  }
+
+  master_account_id    = "${data.terraform_remote_state.master.outputs.master_account_id}"
+  master_detector_ids  = "${data.terraform_remote_state.master.outputs.master_detector_ids}"
+  member_account_email = "${aws_organizations_account.account.email}"
+}
