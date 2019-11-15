@@ -1,5 +1,5 @@
-module "enable_guardduty" {
-  source = "../utility/enable-guardduty-in-all-regions"
+module "guardduty" {
+  source = "../guardduty"
 
   providers = {
     aws.master-ap-northeast-1 = "aws.ap-northeast-1"
