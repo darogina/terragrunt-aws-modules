@@ -86,7 +86,7 @@ data "aws_iam_policy_document" "terragrunt_data_administrator" {
 
 resource "aws_iam_policy" "terragrunt_data_administrator" {
   name        = "TerragruntDataAdministratorAccess"
-  policy      = "${data.aws_iam_policy_document.terragrunt_data_administrator.json}"
+  policy      = data.aws_iam_policy_document.terragrunt_data_administrator.json
   description = "Grants permissions to manage Terraform remote state"
 }
 
@@ -141,7 +141,7 @@ data "aws_iam_policy_document" "terragrunt_data_reader" {
 
 resource "aws_iam_policy" "terragrunt_data_reader" {
   name        = "TerragruntDataReaderAccess"
-  policy      = "${data.aws_iam_policy_document.terragrunt_data_reader.json}"
+  policy      = data.aws_iam_policy_document.terragrunt_data_reader.json
   description = "Grants permissions to read Terraform remote state"
 }
 

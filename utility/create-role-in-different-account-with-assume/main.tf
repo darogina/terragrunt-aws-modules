@@ -10,7 +10,7 @@ module "create_role" {
   source = "../create-role"
 
   providers = {
-    aws = "aws.assume_account"
+    aws = aws.assume_account
   }
 
   account_name            = "${var.account_name}"

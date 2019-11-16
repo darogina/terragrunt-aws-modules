@@ -40,7 +40,7 @@ resource "aws_iam_group" "developers" {
 }
 
 resource "aws_iam_group_policy_attachment" "assume_role_power_user" {
-  group      = "${aws_iam_group.developers.name}"
-  policy_arn = "${module.assume_role_staging_power_user.policy_arn}"
+  group      = aws_iam_group.developers.name
+  policy_arn = module.assume_role_staging_power_user.policy_arn
 }
 

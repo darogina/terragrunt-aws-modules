@@ -53,31 +53,31 @@ resource "aws_iam_group" "administrators" {
 }
 
 resource "aws_iam_group_policy_attachment" "assume_role_organisation_admin" {
-  group      = "${aws_iam_group.administrators.name}"
-  policy_arn = "${data.terraform_remote_state.first_run.outputs.organisation_admin_role_policy_arn}"
+  group      = aws_iam_group.administrators.name
+  policy_arn = data.terraform_remote_state.first_run.outputs.organisation_admin_role_policy_arn
 }
 
 resource "aws_iam_group_policy_attachment" "assume_role_management_admin" {
-  group      = "${aws_iam_group.administrators.name}"
-  policy_arn = "${data.terraform_remote_state.management.outputs.admin_role_policy_arn}"
+  group      = aws_iam_group.administrators.name
+  policy_arn = data.terraform_remote_state.management.outputs.admin_role_policy_arn
 }
 
 resource "aws_iam_group_policy_attachment" "assume_role_production_admin" {
-  group      = "${aws_iam_group.administrators.name}"
-  policy_arn = "${data.terraform_remote_state.production.outputs.admin_role_policy_arn}"
+  group      = aws_iam_group.administrators.name
+  policy_arn = data.terraform_remote_state.production.outputs.admin_role_policy_arn
 }
 
 resource "aws_iam_group_policy_attachment" "assume_role_staging_admin" {
-  group      = "${aws_iam_group.administrators.name}"
-  policy_arn = "${data.terraform_remote_state.staging.outputs.admin_role_policy_arn}"
+  group      = aws_iam_group.administrators.name
+  policy_arn = data.terraform_remote_state.staging.outputs.admin_role_policy_arn
 }
 
 resource "aws_iam_group_policy_attachment" "assume_role_terragrunt_data_reader" {
-  group      = "${aws_iam_group.administrators.name}"
-  policy_arn = "${data.terraform_remote_state.master.outputs.assume_terragrunt_data_reader_role_policy_arn}"
+  group      = aws_iam_group.administrators.name
+  policy_arn = data.terraform_remote_state.master.outputs.assume_terragrunt_data_reader_role_policy_arn
 }
 
 resource "aws_iam_group_policy_attachment" "assume_role_billing" {
-  group      = "${aws_iam_group.administrators.name}"
-  policy_arn = "${data.terraform_remote_state.master.outputs.master_billing_role_policy_arn}"
+  group      = aws_iam_group.administrators.name
+  policy_arn = data.terraform_remote_state.master.outputs.master_billing_role_policy_arn
 }
