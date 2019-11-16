@@ -10,6 +10,23 @@ output "assume_terragrunt_data_reader_role_policy_arn" {
   value = "${module.assume_role_terragrunt_data_reader.policy_arn}"
 }
 
+output "audit_logs_bucket_arn" {
+  value = "${module.cloudtrail.audit_logs_bucket_arn}"
+}
+
+output "audit_logs_bucket_id" {
+  value = "${module.cloudtrail.audit_logs_bucket_id}"
+}
+
+output "cloudtrail_bucket_arn" {
+  value = "${module.cloudtrail.cloudtrail_bucket_arn}"
+}
+
+output "cloudtrail_bucket_id" {
+  value = "${module.cloudtrail.cloudtrail_bucket_id}"
+}
+
+
 output "master_account_id" {
   value = "${data.aws_caller_identity.current.account_id}"
 }
