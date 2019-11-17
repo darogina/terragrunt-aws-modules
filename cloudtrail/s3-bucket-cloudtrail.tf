@@ -67,7 +67,8 @@ resource "aws_s3_bucket" "cloudtrail" {
   }
 
   logging {
-    target_bucket = aws_s3_bucket.audit_logs.id
+    target_bucket = var.audit_logs_bucket_id
+    target_prefix = "s3/${var.cloudtrail_bucket_name}/"
   }
 
   lifecycle_rule {
