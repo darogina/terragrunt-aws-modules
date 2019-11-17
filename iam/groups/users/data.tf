@@ -109,6 +109,7 @@ data "aws_iam_policy_document" "force_mfa" {
       "iam:ListServiceSpecificCredentials",
       "iam:ListMFADevices",
       "iam:GetAccountSummary",
+      "iam:ChangePassword",
       "sts:GetSessionToken"
     ]
 
