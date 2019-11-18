@@ -1,3 +1,8 @@
+variable "admin_email" {
+  description = "The email address assigned to the terraform-created administrator user"
+  type        = string
+}
+
 variable "administrator_default_arn" {
   description = "The default ARN for Administrators"
   type        = string
@@ -6,6 +11,17 @@ variable "administrator_default_arn" {
 
 variable "audit_logs_bucket_name" {
   description = "The name of the S3 bucket holding audit data"
+  type        = string
+}
+
+variable "billing_alarm_currency" {
+  description = "The currency of the billing alarm"
+  type        = string
+  default     = "USD"
+}
+
+variable "billing_alarm_threshold" {
+  description = "The threshold of the billing alarm"
   type        = string
 }
 
