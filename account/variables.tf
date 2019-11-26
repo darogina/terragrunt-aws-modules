@@ -28,3 +28,8 @@ variable "tfstate_global_bucket_region" {
   description = "The region of the S3 bucket that holds Terraform state"
   type        = string
 }
+
+variable "vpc_cidr_block" {
+  description = "The CIDR range to assign to the account VPC, recommended to be a /16"
+  type        = string
+}

@@ -23,3 +23,15 @@ module "harden_default_vpc" {
   account_name                     = "${var.account_name}"
   vpc_flow_logs_publisher_role_arn = "${data.terraform_remote_state.master.outputs.vpc_flow_logs_publisher_role_arn}"
 }
+
+module "vpc" {
+  source = "../networking/vpc"
+
+  providers = {
+    aws = aws.member
+  }
+
+  account_name                     = "${var.account_name}"
+  cidr_block                       = "${var.vpc_cidr_block}"
+  vpc_flow_logs_publisher_role_arn = "${data.terraform_remote_state.master.outputs.vpc_flow_logs_publisher_role_arn}"
+}
