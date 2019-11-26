@@ -34,7 +34,7 @@ resource "aws_iam_role_policy" "vpc_flow_logs_publish_policy" {
 }
 
 module "harden_default_vpc" {
-  source = "../utility/harden-default-vpc-in-all-regions"
+  source = "../utility/vpc/harden-default-vpc-in-all-regions"
 
   providers = {
     aws.ap-northeast-1 = aws.ap-northeast-1

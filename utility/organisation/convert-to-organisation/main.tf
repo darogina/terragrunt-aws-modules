@@ -30,7 +30,7 @@ resource "aws_organizations_organization" "master" {
 }
 
 module "assume_role_organisation_admin" {
-  source = "../create-role-with-assume"
+  source = "../../iam/create-role-with-assume"
 
   account_name            = "master"
   account_id              = "${data.aws_caller_identity.current.account_id}"

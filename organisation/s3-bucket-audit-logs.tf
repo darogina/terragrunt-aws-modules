@@ -45,7 +45,7 @@ resource "aws_s3_bucket_public_access_block" "audit_logs" {
 }
 
 module "audit_log_bucket_policy" {
-  source = "../utility/audit-log-bucket-policy-for-all-accounts"
+  source = "../utility/s3/audit-log-bucket-policy-for-all-accounts"
 
   audit_logs_bucket_arn = aws_s3_bucket.audit_logs.arn
   audit_logs_bucket_id  = aws_s3_bucket.audit_logs.id

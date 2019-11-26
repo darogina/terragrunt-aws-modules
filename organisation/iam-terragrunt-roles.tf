@@ -1,5 +1,5 @@
 module "assume_role_terragrunt_administrator" {
-  source = "../utility/create-role-with-assume"
+  source = "../utility/iam/create-role-with-assume"
 
   account_name            = "master"
   account_id              = "${data.aws_caller_identity.current.account_id}"
@@ -91,7 +91,7 @@ resource "aws_iam_policy" "terragrunt_data_administrator" {
 }
 
 module "assume_role_terragrunt_data_administrator" {
-  source = "../utility/create-role-with-assume"
+  source = "../utility/iam/create-role-with-assume"
 
   account_name            = "master"
   account_id              = "${data.aws_caller_identity.current.account_id}"
@@ -146,7 +146,7 @@ resource "aws_iam_policy" "terragrunt_data_reader" {
 }
 
 module "assume_role_terragrunt_data_reader" {
-  source = "../utility/create-role-with-assume"
+  source = "../utility/iam/create-role-with-assume"
 
   account_name            = "master"
   account_id              = "${data.aws_caller_identity.current.account_id}"
