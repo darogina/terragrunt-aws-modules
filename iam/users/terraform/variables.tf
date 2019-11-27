@@ -4,6 +4,6 @@ variable "keybase" {
 }
 
 variable "username" {
-  description = "The name of the Terragrunt IAM user"
+  description = "The name of the Terraform IAM user"
   type        = string
 }

@@ -1,14 +1,14 @@
-module "assume_role_terragrunt_administrator" {
+module "assume_role_terraform_administrator" {
   source = "../utility/iam/create-role-with-assume"
 
   account_name            = "master"
   account_id              = "${data.aws_caller_identity.current.account_id}"
   assume_role_policy_json = "${data.aws_iam_policy_document.crossaccount_assume_from_master.json}"
-  role                    = "TerragruntAdministrator"
+  role                    = "TerraformAdministrator"
   role_policy_arn         = "${var.administrator_default_arn}"
 }
 
-data "aws_iam_policy_document" "terragrunt_data_administrator" {
+data "aws_iam_policy_document" "terraform_data_administrator" {
   statement {
     sid = "AllowListAllS3Buckets"
 
@@ -84,23 +84,23 @@ data "aws_iam_policy_document" "terragrunt_data_administrator" {
   }
 }
 
-resource "aws_iam_policy" "terragrunt_data_administrator" {
-  name        = "TerragruntDataAdministratorAccess"
-  policy      = data.aws_iam_policy_document.terragrunt_data_administrator.json
+resource "aws_iam_policy" "terraform_data_administrator" {
+  name        = "TerraformDataAdministratorAccess"
+  policy      = data.aws_iam_policy_document.terraform_data_administrator.json
   description = "Grants permissions to manage Terraform remote state"
 }
 
-module "assume_role_terragrunt_data_administrator" {
+module "assume_role_terraform_data_administrator" {
   source = "../utility/iam/create-role-with-assume"
 
   account_name            = "master"
   account_id              = "${data.aws_caller_identity.current.account_id}"
   assume_role_policy_json = "${data.aws_iam_policy_document.crossaccount_assume_from_master.json}"
-  role                    = "TerragruntDataAdministrator"
-  role_policy_arn         = "${aws_iam_policy.terragrunt_data_administrator.arn}"
+  role                    = "TerraformDataAdministrator"
+  role_policy_arn         = "${aws_iam_policy.terraform_data_administrator.arn}"
 }
 
-data "aws_iam_policy_document" "terragrunt_data_reader" {
+data "aws_iam_policy_document" "terraform_data_reader" {
   statement {
     sid = "AllowListAllS3Buckets"
 
@@ -139,18 +139,18 @@ data "aws_iam_policy_document" "terragrunt_data_reader" {
   }
 }
 
-resource "aws_iam_policy" "terragrunt_data_reader" {
-  name        = "TerragruntDataReaderAccess"
-  policy      = data.aws_iam_policy_document.terragrunt_data_reader.json
+resource "aws_iam_policy" "terraform_data_reader" {
+  name        = "TerraformDataReaderAccess"
+  policy      = data.aws_iam_policy_document.terraform_data_reader.json
   description = "Grants permissions to read Terraform remote state"
 }
 
-module "assume_role_terragrunt_data_reader" {
+module "assume_role_terraform_data_reader" {
   source = "../utility/iam/create-role-with-assume"
 
   account_name            = "master"
   account_id              = "${data.aws_caller_identity.current.account_id}"
   assume_role_policy_json = "${data.aws_iam_policy_document.crossaccount_assume_from_master.json}"
-  role                    = "TerragruntDataReader"
-  role_policy_arn         = "${aws_iam_policy.terragrunt_data_reader.arn}"
+  role                    = "TerraformDataReader"
+  role_policy_arn         = "${aws_iam_policy.terraform_data_reader.arn}"
 }

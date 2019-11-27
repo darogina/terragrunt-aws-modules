@@ -1,13 +1,13 @@
-output "assume_terragrunt_administrator_role_policy_arn" {
-  value = "${module.assume_role_terragrunt_administrator.policy_arn}"
+output "assume_terraform_administrator_role_policy_arn" {
+  value = "${module.assume_role_terraform_administrator.policy_arn}"
 }
 
-output "assume_terragrunt_data_administrator_role_policy_arn" {
-  value = "${module.assume_role_terragrunt_data_administrator.policy_arn}"
+output "assume_terraform_data_administrator_role_policy_arn" {
+  value = "${module.assume_role_terraform_data_administrator.policy_arn}"
 }
 
-output "assume_terragrunt_data_reader_role_policy_arn" {
-  value = "${module.assume_role_terragrunt_data_reader.policy_arn}"
+output "assume_terraform_data_reader_role_policy_arn" {
+  value = "${module.assume_role_terraform_data_reader.policy_arn}"
 }
 
 output "audit_logs_bucket_arn" {
@@ -64,12 +64,12 @@ output "route53_zone_id" {
   value = "${module.route53_zone.zone_id}"
 }
 
-output "terragrunt_data_administrator_policy_arn" {
-  value = "${aws_iam_policy.terragrunt_data_administrator.arn}"
+output "terraform_data_administrator_policy_arn" {
+  value = "${aws_iam_policy.terraform_data_administrator.arn}"
 }
 
-output "terragrunt_data_reader_policy_arn" {
-  value = "${aws_iam_policy.terragrunt_data_reader.arn}"
+output "terraform_data_reader_policy_arn" {
+  value = "${aws_iam_policy.terraform_data_reader.arn}"
 }
 
 output "vpc_flow_logs_publisher_role_arn" {

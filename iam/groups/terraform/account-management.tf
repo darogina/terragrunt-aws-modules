@@ -9,6 +9,6 @@ data "terraform_remote_state" "management" {
 }
 
 resource "aws_iam_group_policy_attachment" "assume_role_organization_account_access_management" {
-  group      = aws_iam_group.terragrunt.name
+  group      = aws_iam_group.terraform.name
   policy_arn = data.terraform_remote_state.management.outputs.org_account_access_role_policy_arn
 }
