@@ -17,6 +17,10 @@ resource "aws_default_route_table" "default_route_route" {
   default_route_table_id = aws_vpc.vpc.default_route_table_id
 }
 
+resource "aws_internet_gateway" "gw" {
+  vpc_id = aws_vpc.vpc.id
+}
+
 resource "aws_cloudwatch_log_group" "vpc_flow_logs" {
   name              = "${var.account_name}-${var.vpc_log_group_name}"
   retention_in_days = var.vpc_log_retention_in_days
