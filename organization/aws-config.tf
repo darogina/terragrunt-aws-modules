@@ -27,7 +27,7 @@ module "aws-config" {
   region                = var.aws_region
 }
 
-data "aws_iam_policy_document" "config_organisation_assume_role_policy" {
+data "aws_iam_policy_document" "config_organization_assume_role_policy" {
   statement {
     principals {
       type        = "Service"
@@ -37,21 +37,21 @@ data "aws_iam_policy_document" "config_organisation_assume_role_policy" {
   }
 }
 
-resource "aws_iam_role" "config_organisation_aggregator" {
+resource "aws_iam_role" "config_organization_aggregator" {
   name               = "MasterAWSConfigAggregatorRole"
-  assume_role_policy = data.aws_iam_policy_document.config_organisation_assume_role_policy.json
+  assume_role_policy = data.aws_iam_policy_document.config_organization_assume_role_policy.json
 }
 
-resource "aws_iam_role_policy_attachment" "config_organisation_aggregator" {
-  role       = aws_iam_role.config_organisation_aggregator.name
+resource "aws_iam_role_policy_attachment" "config_organization_aggregator" {
+  role       = aws_iam_role.config_organization_aggregator.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSConfigRoleForOrganizations"
 }
 
-resource "aws_config_configuration_aggregator" "organisation" {
+resource "aws_config_configuration_aggregator" "organization" {
   name = "master-aggregator"
 
   organization_aggregation_source {
     all_regions = true
-    role_arn    = aws_iam_role.config_organisation_aggregator.arn
+    role_arn    = aws_iam_role.config_organization_aggregator.arn
   }
 }

@@ -1,4 +1,4 @@
-data "aws_organizations_organization" "organisation" {}
+data "aws_organizations_organization" "organization" {}
 
 data "aws_iam_policy_document" "audit_log_policy" {
   depends_on = [null_resource.depends_on]
@@ -26,10 +26,10 @@ data "aws_iam_policy_document" "audit_log_policy" {
 
     resources = concat(
       [
-        "${var.audit_logs_bucket_arn}/AWSLogs/${data.aws_organizations_organization.organisation.id}/Config/*"
+        "${var.audit_logs_bucket_arn}/AWSLogs/${data.aws_organizations_organization.organization.id}/Config/*"
       ],
       [
-        for account in data.aws_organizations_organization.organisation.non_master_accounts : "${var.audit_logs_bucket_arn}/AWSLogs/${account.id}/Config/*"
+        for account in data.aws_organizations_organization.organization.non_master_accounts : "${var.audit_logs_bucket_arn}/AWSLogs/${account.id}/Config/*"
       ]
     )
 
@@ -85,7 +85,7 @@ data "aws_iam_policy_document" "audit_log_policy" {
   }
 
   dynamic "statement" {
-    for_each = data.aws_organizations_organization.organisation.non_master_accounts[*].id
+    for_each = data.aws_organizations_organization.organization.non_master_accounts[*].id
     iterator = account_id
 
     content {

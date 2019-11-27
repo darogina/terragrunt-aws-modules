@@ -32,7 +32,7 @@ module "assume_role_account_administrator" {
   role_policy_arn         = "${var.administrator_default_arn}"
 }
 
-data "aws_iam_policy_document" "assume_role_organisation_account_access" {
+data "aws_iam_policy_document" "assume_role_organization_account_access" {
   statement {
     sid     = "Assume${title(var.account_name)}OrganizationAccountAccessRole"
     actions = ["sts:AssumeRole"]
@@ -43,9 +43,9 @@ data "aws_iam_policy_document" "assume_role_organisation_account_access" {
   }
 }
 
-resource "aws_iam_policy" "assume_role_organisation_account_access" {
+resource "aws_iam_policy" "assume_role_organization_account_access" {
   name        = "Assume${title(var.account_name)}OrganizationAccountAccessRole"
-  policy      = data.aws_iam_policy_document.assume_role_organisation_account_access.json
+  policy      = data.aws_iam_policy_document.assume_role_organization_account_access.json
   description = "Grants role assuption for the OrganizationAccountAccess role in the ${title(var.account_name)} account"
 }
 

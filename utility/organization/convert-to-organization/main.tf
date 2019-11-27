@@ -29,7 +29,7 @@ resource "aws_organizations_organization" "master" {
   }
 }
 
-module "assume_role_organisation_admin" {
+module "assume_role_organization_admin" {
   source = "../../iam/create-role-with-assume"
 
   account_name            = "master"

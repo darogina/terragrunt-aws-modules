@@ -11,5 +11,5 @@ output "admin_role_policy_arn" {
 }
 
 output "org_account_access_role_policy_arn" {
-  value = "${aws_iam_policy.assume_role_organisation_account_access.arn}"
+  value = "${aws_iam_policy.assume_role_organization_account_access.arn}"
 }

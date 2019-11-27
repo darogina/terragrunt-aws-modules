@@ -3,7 +3,7 @@ data "terraform_remote_state" "first_run" {
 
   config = {
     bucket = "${var.tfstate_global_bucket}"
-    key    = "first-run/convert-to-organisation/terraform.tfstate"
+    key    = "first-run/convert-to-organization/terraform.tfstate"
     region = "${var.tfstate_global_bucket_region}"
   }
 }
@@ -13,7 +13,7 @@ data "terraform_remote_state" "master" {
 
   config = {
     bucket = "${var.tfstate_global_bucket}"
-    key    = "organisation/terraform.tfstate"
+    key    = "organization/terraform.tfstate"
     region = "${var.tfstate_global_bucket_region}"
   }
 }
@@ -52,9 +52,9 @@ resource "aws_iam_group" "administrators" {
   name = "administrators"
 }
 
-resource "aws_iam_group_policy_attachment" "assume_role_organisation_admin" {
+resource "aws_iam_group_policy_attachment" "assume_role_organization_admin" {
   group      = aws_iam_group.administrators.name
-  policy_arn = data.terraform_remote_state.first_run.outputs.organisation_admin_role_policy_arn
+  policy_arn = data.terraform_remote_state.first_run.outputs.organization_admin_role_policy_arn
 }
 
 resource "aws_iam_group_policy_attachment" "assume_role_management_admin" {
