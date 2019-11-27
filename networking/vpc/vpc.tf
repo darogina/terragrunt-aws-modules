@@ -24,7 +24,7 @@ resource "aws_cloudwatch_log_group" "vpc_flow_logs" {
 
 resource "aws_flow_log" "all" {
   log_destination = aws_cloudwatch_log_group.vpc_flow_logs.arn
-  iam_role_arn    = var.vpc_flow_logs_publisher_role_arn
+  iam_role_arn    = data.terraform_remote_state.master.outputs.vpc_flow_logs_publisher_role_arn
   vpc_id          = aws_vpc.vpc.id
   traffic_type    = "ALL"
 }

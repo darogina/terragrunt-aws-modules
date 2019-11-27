@@ -6,8 +6,14 @@ variable "cidr_block" {
   description = "The CIDR block to assign to the VPC"
 }
 
-variable "vpc_flow_logs_publisher_role_arn" {
-  description = "The ARN of the IAM Role which will be used to publish VPC Flow Logs."
+variable "tfstate_global_bucket" {
+  description = "The S3 bucket that holds Terraform state"
+  type        = string
+}
+
+variable "tfstate_global_bucket_region" {
+  description = "The region of the S3 bucket that holds Terraform state"
+  type        = string
 }
 
 variable "vpc_log_group_name" {
