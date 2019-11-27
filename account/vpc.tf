@@ -1,5 +1,5 @@
 module "harden_default_vpc" {
-  source = "../utility/vpc/harden-default-vpc-in-all-regions"
+  source = "../utility/networking/harden-default-vpc-in-all-regions"
 
   providers = {
     aws.ap-northeast-1 = aws.member-ap-northeast-1
