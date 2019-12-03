@@ -1,5 +1,5 @@
 resource "aws_network_acl" "nat" {
-  vpc_id     = var.vpc_id
+  vpc_id = var.vpc_id
 
   # allow all traffic from instances inside the VPC.
   ingress {
@@ -33,11 +33,10 @@ resource "aws_network_acl" "nat" {
 }
 
 resource "aws_eip" "nat" {
-  vpc   = true
+  vpc = true
 }
 
 resource "aws_nat_gateway" "gw" {
   allocation_id = aws_eip.nat.id
   subnet_id     = var.public_subnet_id
 }
-
