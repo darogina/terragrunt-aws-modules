@@ -56,6 +56,14 @@ output "master_billing_role_policy_arn" {
   value = "${module.assume_role_master_billing.policy_arn}"
 }
 
+output "route53_name_servers" {
+  value = "${module.route53_zone.name_servers}"
+}
+
+output "route53_zone_id" {
+  value = "${module.route53_zone.zone_id}"
+}
+
 output "terragrunt_data_administrator_policy_arn" {
   value = "${aws_iam_policy.terragrunt_data_administrator.arn}"
 }
