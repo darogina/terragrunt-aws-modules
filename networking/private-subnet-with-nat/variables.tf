@@ -18,6 +18,11 @@ variable "subnet_cidr" {
   type        = string
 }
 
+variable "subnet_name" {
+  description = "The name of the subnet"
+  type        = string
+}
+
 variable "tfstate_global_bucket" {
   description = "The S3 bucket that holds Terraform state"
   type        = string

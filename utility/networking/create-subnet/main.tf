@@ -2,6 +2,10 @@ resource "aws_subnet" "subnet" {
   availability_zone = var.availability_zone
   cidr_block        = var.subnet_cidr
   vpc_id            = var.vpc_id
+
+  tags = {
+    Name = var.subnet_name
+  }
 }
 
 resource "aws_route_table" "route_table" {

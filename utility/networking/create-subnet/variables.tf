@@ -8,6 +8,11 @@ variable "subnet_cidr" {
   type        = string
 }
 
+variable "subnet_name" {
+  description = "The name of the subnet"
+  type        = string
+}
+
 variable "vpc_id" {
   description = "The ID of the account VPC"
   type        = string
