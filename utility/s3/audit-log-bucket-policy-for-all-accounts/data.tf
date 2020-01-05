@@ -26,10 +26,10 @@ data "aws_iam_policy_document" "audit_log_policy" {
 
     resources = concat(
       [
-        "${var.audit_logs_bucket_arn}/config/AWSLogs/${data.aws_organizations_organization.organisation.id}/Config/*"
+        "${var.audit_logs_bucket_arn}/AWSLogs/${data.aws_organizations_organization.organisation.id}/Config/*"
       ],
       [
-        for account in data.aws_organizations_organization.organisation.non_master_accounts : "${var.audit_logs_bucket_arn}/config/AWSLogs/${account.id}/Config/*"
+        for account in data.aws_organizations_organization.organisation.non_master_accounts : "${var.audit_logs_bucket_arn}/AWSLogs/${account.id}/Config/*"
       ]
     )
 
