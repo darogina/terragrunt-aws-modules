@@ -20,4 +20,8 @@ resource "aws_route_table_association" "route_table_association" {
 resource "aws_network_acl" "subnet_acl" {
   subnet_ids = [aws_subnet.subnet.id]
   vpc_id     = var.vpc_id
+
+  tags = {
+    Name = var.subnet_name
+  }
 }
