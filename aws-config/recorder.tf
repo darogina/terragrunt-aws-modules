@@ -37,7 +37,7 @@ resource "aws_iam_role" "recorder" {
 data "aws_iam_policy_document" "recorder_publish_policy" {
   statement {
     actions   = ["s3:PutObject"]
-    resources = ["${var.audit_logs_bucket_arn}/config/AWSLogs/${var.account_id}/*"]
+    resources = ["${var.audit_logs_bucket_arn}/AWSLogs/${var.account_id}/Config/*"]
 
     condition {
       test     = "StringLike"
