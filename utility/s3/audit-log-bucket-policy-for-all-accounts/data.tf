@@ -52,31 +52,6 @@ data "aws_iam_policy_document" "audit_log_policy" {
     resources = ["${var.audit_logs_bucket_arn}"]
   }
 
-  statement {
-    sid     = "AWSCloudTrailWriteForCloudTrail"
-    actions = ["s3:PutObject"]
-
-    principals {
-      type        = "Service"
-      identifiers = ["cloudtrail.amazonaws.com"]
-    }
-
-    resources = concat(
-      [
-        "${var.audit_logs_bucket_arn}/cloudtrail/AWSLogs/${data.aws_organizations_organization.organisation.id}/*"
-      ],
-      [
-        for account in data.aws_organizations_organization.organisation.non_master_accounts : "${var.audit_logs_bucket_arn}/cloudtrail/AWSLogs/${account.id}/*"
-      ]
-    )
-
-    condition {
-      test     = "StringEquals"
-      variable = "s3:x-amz-acl"
-      values   = ["bucket-owner-full-control"]
-    }
-  }
-
   dynamic "statement" {
     for_each = data.aws_organizations_organization.organisation.non_master_accounts[*].id
     iterator = account_id
