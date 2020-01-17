@@ -51,8 +51,7 @@ resource "aws_s3_bucket" "cloudtrail" {
   force_destroy = false
 
   versioning {
-    enabled    = true
-    mfa_delete = true
+    enabled = true
   }
 
   server_side_encryption_configuration {
