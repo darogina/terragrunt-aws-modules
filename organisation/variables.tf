@@ -36,6 +36,11 @@ variable "cloudtrail_bucket_name" {
   type        = string
 }
 
+variable "domain" {
+  description = "The primary domain to add to Route53"
+  type        = string
+}
+
 variable "tfstate_global_bucket" {
   description = "The S3 bucket that holds Terraform state"
   type        = string
