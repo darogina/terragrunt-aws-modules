@@ -3,7 +3,7 @@ data "terraform_remote_state" "master" {
 
   config = {
     bucket = "${var.tfstate_global_bucket}"
-    key    = "organisation/terraform.tfstate"
+    key    = "organization/terraform.tfstate"
     region = "${var.tfstate_global_bucket_region}"
   }
 }

@@ -2,27 +2,92 @@ data "aws_iam_policy_document" "force_mfa" {
 
   statement {
 
-    sid = "AllowIndividualUserToSeeAndManageOnlyTheirOwnAccountInformation"
+    sid = "AllowViewAccountInfo"
+
+    effect = "Allow"
+
+    actions = [
+      "iam:GetAccountPasswordPolicy",
+      "iam:GetAccountSummary",
+      "iam:ListUsers",
+      "iam:ListVirtualMFADevices"
+    ]
+
+    resources = [
+      "*"
+    ]
+
+  }
+
+  statement {
+
+    sid = "AllowManageOwnPasswords"
 
     effect = "Allow"
 
     actions = [
       "iam:ChangePassword",
-      "iam:CreateAccessKey",
       "iam:CreateLoginProfile",
-      "iam:DeleteAccessKey",
       "iam:DeleteLoginProfile",
       "iam:GetLoginProfile",
+      "iam:GetUser",
+      "iam:UpdateLoginProfile"
+    ]
+
+    resources = [
+      "arn:aws:iam::*:user/$${aws:username}"
+    ]
+
+  }
+
+  statement {
+
+    sid = "AllowManageOwnAccessKeys"
+
+    effect = "Allow"
+
+    actions = [
+      "iam:CreateAccessKey",
+      "iam:DeleteAccessKey",
       "iam:ListAccessKeys",
-      "iam:UpdateAccessKey",
-      "iam:UpdateLoginProfile",
-      "iam:ListSigningCertificates",
+      "iam:UpdateAccessKey"
+    ]
+
+    resources = [
+      "arn:aws:iam::*:user/$${aws:username}"
+    ]
+
+  }
+
+  statement {
+
+    sid = "AllowManageOwnSigningCertificates"
+
+    effect = "Allow"
+
+    actions = [
       "iam:DeleteSigningCertificate",
+      "iam:ListSigningCertificates",
       "iam:UpdateSigningCertificate",
-      "iam:UploadSigningCertificate",
-      "iam:ListSSHPublicKeys",
-      "iam:GetSSHPublicKey",
+      "iam:UploadSigningCertificate"
+    ]
+
+    resources = [
+      "arn:aws:iam::*:user/$${aws:username}"
+    ]
+
+  }
+
+  statement {
+
+    sid = "AllowManageOwnSSHPublicKeys"
+
+    effect = "Allow"
+
+    actions = [
       "iam:DeleteSSHPublicKey",
+      "iam:GetSSHPublicKey",
+      "iam:ListSSHPublicKeys",
       "iam:UpdateSSHPublicKey",
       "iam:UploadSSHPublicKey"
     ]
@@ -30,86 +95,82 @@ data "aws_iam_policy_document" "force_mfa" {
     resources = [
       "arn:aws:iam::*:user/$${aws:username}"
     ]
+
   }
 
   statement {
 
-    sid = "AllowIndividualUserToListOnlyTheirOwnMFA"
+    sid = "AllowManageOwnGitCredentials"
 
     effect = "Allow"
 
     actions = [
-      "iam:ListMFADevices"
+      "iam:CreateServiceSpecificCredential",
+      "iam:DeleteServiceSpecificCredential",
+      "iam:ListServiceSpecificCredentials",
+      "iam:ResetServiceSpecificCredential",
+      "iam:UpdateServiceSpecificCredential"
     ]
 
     resources = [
-      "arn:aws:iam::*:mfa/*",
       "arn:aws:iam::*:user/$${aws:username}"
     ]
+
   }
 
   statement {
 
-    sid = "AllowIndividualUserToManageTheirOwnMFA"
+    sid = "AllowManageOwnVirtualMFADevice"
 
     effect = "Allow"
 
     actions = [
       "iam:CreateVirtualMFADevice",
-      "iam:DeleteVirtualMFADevice",
+      "iam:DeleteVirtualMFADevice"
+    ]
+
+    resources = [
+      "arn:aws:iam::*:mfa/$${aws:username}"
+    ]
+
+  }
+
+  statement {
+
+    sid = "AllowManageOwnUserMFA"
+
+    effect = "Allow"
+
+    actions = [
+      "iam:DeactivateMFADevice",
       "iam:EnableMFADevice",
+      "iam:ListMFADevices",
       "iam:ResyncMFADevice"
     ]
 
     resources = [
-      "arn:aws:iam::*:mfa/$${aws:username}",
       "arn:aws:iam::*:user/$${aws:username}"
     ]
+
   }
 
   statement {
 
-    sid = "AllowIndividualUserToDeactivateOnlyTheirOwnMFAOnlyWhenUsingMFA"
-
-    effect = "Allow"
-
-    actions = [
-      "iam:DeactivateMFADevice"
-    ]
-
-    resources = [
-      "arn:aws:iam::*:mfa/$${aws:username}",
-      "arn:aws:iam::*:user/$${aws:username}"
-    ]
-
-    condition {
-      test     = "Bool"
-      variable = "aws:MultiFactorAuthPresent"
-
-      values = [
-        "true"
-      ]
-    }
-  }
-
-  statement {
-
-    sid = "BlockMostAccessUnlessSignedInWithMFA"
+    sid = "DenyAllExceptListedIfNoMFA"
 
     effect = "Deny"
 
     not_actions = [
-      "iam:CreateVirtualMFADevice",
-      "iam:DeleteVirtualMFADevice",
-      "iam:ListVirtualMFADevices",
-      "iam:EnableMFADevice",
-      "iam:ResyncMFADevice",
-      "iam:ListSSHPublicKeys",
-      "iam:ListAccessKeys",
-      "iam:ListServiceSpecificCredentials",
-      "iam:ListMFADevices",
-      "iam:GetAccountSummary",
       "iam:ChangePassword",
+      "iam:CreateLoginProfile",
+      "iam:CreateVirtualMFADevice",
+      "iam:EnableMFADevice",
+      "iam:GetAccountPasswordPolicy",
+      "iam:GetUser",
+      "iam:ListMFADevices",
+      "iam:ListUsers",
+      "iam:ListVirtualMFADevices",
+      "iam:ResyncMFADevice",
       "sts:GetSessionToken"
     ]
 
