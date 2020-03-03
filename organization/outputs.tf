@@ -56,13 +56,13 @@ output "master_billing_role_policy_arn" {
   value = "${module.assume_role_master_billing.policy_arn}"
 }
 
-output "route53_name_servers" {
-  value = "${module.route53_zone.name_servers}"
-}
+# output "route53_name_servers" {
+#   value = "${module.route53_zone.name_servers}"
+# }
 
-output "route53_zone_id" {
-  value = "${module.route53_zone.zone_id}"
-}
+# output "route53_zone_id" {
+#   value = "${module.route53_zone.zone_id}"
+# }
 
 output "terraform_data_administrator_policy_arn" {
   value = "${aws_iam_policy.terraform_data_administrator.arn}"
