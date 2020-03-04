@@ -31,7 +31,7 @@ module "assume_role_power_user" {
   account_name            = "${data.terraform_remote_state.account.outputs.account_name}"
   account_id              = "${data.terraform_remote_state.account.outputs.account_id}"
   assume_role_policy_json = "${data.aws_iam_policy_document.crossaccount_assume_from_master.json}"
-  role                    = "PowerUser"
+  role                    = "Developer"
   role_policy_arn         = "${var.power_user_default_arn}"
 }
 
